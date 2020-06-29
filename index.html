@@ -3,7 +3,35 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="Assets/style.css" />
     <title>Document</title>
   </head>
-  <body></body>
+  <body>
+    <div class="container noMarg">
+      <div class="row">
+        <div class="col-4 float-left">
+          <form action="POST">
+            <label for="citySearchForm">Search for a city:</label><br />
+            <input
+              type="text"
+              id="citySearchForm"
+              name="citySearchForm"
+            /><br />
+          </form>
+        </div>
+        <div class="col-8 float-left"></div>
+        <div class="container">
+          <div class="row"></div>
+          <div class="row"></div>
+        </div>
+      </div>
+    </div>
+    <script src="Assets/script.js"></script>
+  </body>
 </html>
