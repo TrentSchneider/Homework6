@@ -26,4 +26,6 @@ var newLocation;
 // }
 $("#newLocationBtn").on("click", function () {
   var newLocation = $("#citySearch").val;
+  var newLocationDiv = $("locationList").append("<div>");
+  newLocationDiv.text(newLocation);
 });
