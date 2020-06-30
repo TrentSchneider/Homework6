@@ -1,5 +1,5 @@
 var long, lat;
-
+var newLocation;
 // if (navigator.geolocation) {
 //   navigator.geolocation.getCurrentPosition(showPosition);
 //   function showPosition(position) {
@@ -23,5 +23,7 @@ var long, lat;
 //   });
 // }
 // function showData(){
-
 // }
+$("#newLocationBtn").on("click", function () {
+  var newLocation = $("#citySearch").val;
+});
