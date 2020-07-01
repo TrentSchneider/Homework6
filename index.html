@@ -19,13 +19,13 @@
           <div class="card card-header">
             <form action="POST">
               <div class="input-group">
-                <label class="h3" for="citySearchForm">Search for a city:</label
+                <label class="h3" for="citySearch">Search for a city:</label
                 ><br />
                 <input
                   class="form-control-lg"
                   type="text"
                   id="citySearch"
-                  name="citySearchs"
+                  name="citySearch"
                 />
                 <div class="input-group-append">
                   <button
@@ -55,11 +55,20 @@
               </div>
             </form>
           </div>
-          <div class="card-body" id="locationList"></div>
+          <div class="card-body">
+            <ul id="locationList"></ul>
+          </div>
         </div>
         <div class="col-9">
           <div class="container">
             <div class="row">
+              <div class="card card-body">
+                <h2 id="cityName">---</h2>
+                <p id="currentTemp">Temperature: ---</p>
+                <p id="currentHumidity">Humidity: ---</p>
+                <p id="windSpeed">Wind Speed: ---</p>
+                <p id="uv">UV Index: ---</p>
+              </div>
               <button id="testButton">Test Button</button>
             </div>
             <div class="row"></div>
