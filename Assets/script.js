@@ -44,17 +44,24 @@ $("#testButton").on("click", function () {
 function showData() {}
 $("#newLocationBtn").on("click", function () {
   var newLocation = $("#citySearch").val();
-  var newLocationLI = $("#locationList").append("<li>");
-  newLocationLI.text(newLocation);
-  $.ajax({
-    url:
-      "http://api.openweathermap.org/data/2.5/weather?q=" +
-      newLocation +
-      "&appid=366cc20005f64d752fb214b02121c288",
-    method: "GET",
-  }).then(function (response) {
-    lati = response.coord.lat;
-    long = response.coord.lon;
-    getWeather();
-  });
+  if ($("#citySearch").val() != "") {
+    $.ajax({
+      url:
+        "http://api.openweathermap.org/data/2.5/weather?q=" +
+        newLocation +
+        "&appid=366cc20005f64d752fb214b02121c288",
+      method: "GET",
+    }).then(function (response) {
+      lati = response.coord.lat;
+      long = response.coord.lon;
+      getWeather();
+      var newLocation = $("#citySearch").val();
+      var newLocationLI = $("<li>");
+      var locationButton = $("<button>");
+      locationButton.text(response.name);
+      locationButton.addClass("btn btn-primary");
+      newLocationLI.append(locationButton);
+      $("#locationList").append(newLocationLI);
+    });
+  }
 });
