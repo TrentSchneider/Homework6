@@ -4,9 +4,7 @@
 .col-3 {
   height: 100vh;
 }
-.noBord {
-  border: none;
-}
+
 .noPad {
   padding: 0;
 }
@@ -23,7 +21,12 @@ li {
 }
 .col-9 {
   height: 100vh;
+  padding-right: 0;
 }
 .weatherHeight {
-  height: 50vh;
+  height: 40vh;
+  margin-top: 20px;
+}
+p {
+  font-size: 1rem;
 }
