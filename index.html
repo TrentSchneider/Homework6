@@ -22,7 +22,7 @@
                 <label class="h3" for="citySearch">Search for a city:</label
                 ><br />
                 <input
-                  class="form-control-lg"
+                  class="form-control-lg w-75"
                   type="text"
                   id="citySearch"
                   name="citySearch"
@@ -60,9 +60,9 @@
           </div>
         </div>
         <div class="col-9">
-          <div class="container">
+          <div class="container h-100">
             <div class="row">
-              <div class="card card-body">
+              <div id="showCurrent" class="card card-body weatherHeight">
                 <h2 id="cityName">---</h2>
                 <p id="currentTemp">Temperature: ---</p>
                 <p id="currentHumidity">Humidity: ---</p>
@@ -71,12 +71,21 @@
               </div>
               <button id="testButton">Test Button</button>
             </div>
-            <div class="row"></div>
+            <div class="row h-50">
+              <div id="5DaySpace" class="card w-100 h-100">
+                <div class="card card-header h-50">
+                  <h2 class="topMarg">5-Day Forcast:</h2>
+                </div>
+                <div class="card card-body h-100">
+                  <div></div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="Assets/script.js"></script>
+    <!-- <script src="Assets/script.js"></script> -->
   </body>
 </html>

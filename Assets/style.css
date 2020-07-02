@@ -18,3 +18,12 @@ li {
   border-color: black;
   color: black;
 }
+.topMarg {
+  margin-top: 20px;
+}
+.col-9 {
+  height: 100vh;
+}
+.weatherHeight {
+  height: 50vh;
+}

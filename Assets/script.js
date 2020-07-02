@@ -1,10 +1,11 @@
-var long, lat;
+var long, lati;
 var newLocation, cityName, cityTemp, cityHumid, cityWind, cityUV, weatherData;
 if (navigator.geolocation) {
   navigator.geolocation.getCurrentPosition(showPosition);
   function showPosition(position) {
     lati = position.coords.latitude;
     long = position.coords.longitude;
+    getWeather();
   }
 }
 function getWeather() {
@@ -38,9 +39,6 @@ function getWeather() {
     $("#uv").text("UV Index: " + response.value);
   });
 }
-$("#testButton").on("click", function () {
-  getWeather();
-});
 function showData() {}
 $("#newLocationBtn").on("click", function () {
   var newLocation = $("#citySearch").val();
