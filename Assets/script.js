@@ -11,34 +11,65 @@ if (navigator.geolocation) {
 function getWeather() {
   $.ajax({
     url:
+      "https://api.openweathermap.org/data/2.5/onecall?lat=" +
+      lati +
+      "&lon=" +
+      long +
+      "&appid=366cc20005f64d752fb214b02121c288&units=imperial&exclude=hourly",
+    method: "GET",
+  }).then(function (response) {
+    $("#currentTemp").empty();
+    $("#currentTemp").text("Temperature: " + response.current.temp + " °F");
+    $("#currentHumidity").empty();
+    $("#currentHumidity").text("Humidity: " + response.current.humidity);
+    $("#windSpeed").empty();
+    $("#windSpeed").text("Wind Speed: " + response.current.wind_speed);
+    $("#uv").empty();
+    $("#uv").text("UV Index: " + response.current.uvi);
+    console.log(response);
+    for (let i = 1; i < 6; i++) {
+      var fiveDay = $("<div>");
+      fiveDay.attr("class", "card card-body bg-primary float-left");
+      var fiveDayTemp = $("<p>");
+      var fiveDayHum = $("<p>");
+      var fiveDayDate = $("<p>");
+      var fiveDayPic = $("<img>");
+      fiveDayDate.text(moment().add(i, "days").format("ddd MMMM Do, YYYY"));
+      fiveDayPic.attr(
+        "src",
+        "http://openweathermap.org/img/wn/" +
+          response.daily[i].weather[0].icon +
+          ".png"
+      );
+      fiveDayTemp.text(
+        "Temp: " + JSON.stringify(response.daily[i].temp.day) + " °F"
+      );
+      fiveDayHum.text(
+        "Humidity: " + JSON.stringify(response.daily[i].humidity)
+      );
+      fiveDay.append(fiveDayDate);
+      fiveDay.append(fiveDayPic);
+      fiveDay.append(fiveDayTemp);
+      fiveDay.append(fiveDayHum);
+      $("#fiveDaySpace").append(fiveDay);
+    }
+  });
+  $.ajax({
+    url:
       "https://api.openweathermap.org/data/2.5/weather?lat=" +
       lati +
       "&lon=" +
       long +
-      "&appid=366cc20005f64d752fb214b02121c288&units=imperial",
+      "&appid=366cc20005f64d752fb214b02121c288",
     method: "GET",
   }).then(function (response) {
     $("#cityName").empty();
-    $("#cityName").text(response.name);
-    $("#currentTemp").empty();
-    $("#currentTemp").text("Temperature: " + response.main.temp);
-    $("#currentHumidity").empty();
-    $("#currentHumidity").text("Humidity: " + response.main.humidity);
-    $("#windSpeed").empty();
-    $("#windSpeed").text("Wind Speed: " + response.wind.speed);
-  });
-  $.ajax({
-    url:
-      "http://api.openweathermap.org/data/2.5/uvi?appid=366cc20005f64d752fb214b02121c288&lat=" +
-      lati +
-      "&lon=" +
-      long,
-    method: "GET",
-  }).then(function (response) {
-    $("#uv").empty();
-    $("#uv").text("UV Index: " + response.value);
+    $("#cityName").text(
+      response.name + " (" + moment().format("ddd MMMM Do, YYYY") + ")"
+    );
   });
 }
+
 function showData() {}
 $("#newLocationBtn").on("click", function () {
   var newLocation = $("#citySearch").val();

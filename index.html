@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="Assets/style.css" />
     <title>Document</title>
   </head>
-  <body>
+  <body class="bg-secondary">
     <div class="container-fluid noMarg">
       <div class="row">
         <div class="col-3 card card-body noPad">
@@ -71,13 +71,11 @@
               </div>
             </div>
             <div class="row h-50">
-              <div id="5DaySpace" class="w-100 h-100">
-                <div class="h-50">
+              <div class="w-100 h-100">
+                <div>
                   <h2 class="topMarg">5-Day Forcast:</h2>
                 </div>
-                <div class="h-100">
-                  <div></div>
-                </div>
+                <div id="fiveDaySpace" class="card-deck"></div>
               </div>
             </div>
           </div>
@@ -85,6 +83,7 @@
       </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <!-- <script src="Assets/script.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="Assets/script.js"></script>
   </body>
 </html>
