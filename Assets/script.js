@@ -24,8 +24,12 @@ if (
       lati = position.coords.latitude;
       long = position.coords.longitude;
       getWeather();
-      if (locationsArray !== "undefined" && locationsArray !== null) {
-        locationsArray = JSON.parse(localStorage.getItem("storeData"));
+      locationsArray = JSON.parse(localStorage.getItem("storeData"));
+      if (
+        locationsArray !== "undefined" &&
+        locationsArray !== null &&
+        locationsArray !== ""
+      ) {
         fillLi();
       }
     }
@@ -34,11 +38,10 @@ if (
   lati = localStorage.getItem("latitude");
   long = localStorage.getItem("longitude");
   getWeather();
-  if (locationsArray !== "undefined" && locationsArray !== null) {
-    locationsArray = JSON.parse(localStorage.getItem("storeData"));
-    fillLi();
-  }
+  locationsArray = JSON.parse(localStorage.getItem("storeData"));
+  fillLi();
 }
+
 function getWeather() {
   $.ajax({
     url:
@@ -104,6 +107,7 @@ function getWeather() {
 }
 
 function fillLi() {
+  $("#locationList").empty();
   locationsArray = JSON.parse(localStorage.getItem("storeData"));
   for (let i = 0; i < locationsArray.length; i++) {
     var newLocationLI = $("<li>");
@@ -114,14 +118,6 @@ function fillLi() {
     newLocationLI.append(locationButton);
     $("#locationList").append(newLocationLI);
   }
-}
-function addLi() {
-  var newLocationLI = $("<li>");
-  var locationButton = $("<button>");
-  locationButton.text(locName);
-  locationButton.addClass("btn btn-primary locBtn");
-  newLocationLI.append(locationButton);
-  $("#locationList").prepend(newLocationLI);
 }
 
 $("#newLocationBtn").on("click", function () {
@@ -148,10 +144,19 @@ $("#newLocationBtn").on("click", function () {
         latitude: response.coord.lat,
         longitude: response.coord.lon,
       });
+      var data1 = locationsArray.filter((thing, index) => {
+        return (
+          index ===
+          locationsArray.findIndex((obj) => {
+            return JSON.stringify(obj) === JSON.stringify(thing);
+          })
+        );
+      });
+      locationsArray = data1;
       var storeToLocal = JSON.stringify(locationsArray);
       localStorage.setItem("storeData", storeToLocal);
       locName = response.name;
-      addLi();
+      fillLi();
     });
   }
 });
@@ -174,6 +179,5 @@ $("#locationList").on("click", ".locBtn", function () {
   });
   var storeToLocal = JSON.stringify(locationsArray);
   localStorage.setItem("storeData", storeToLocal);
-  $("#locationList").empty();
   fillLi();
 });
