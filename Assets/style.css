@@ -1,32 +1,41 @@
 .noMarg {
-  margin: 0;
+	margin: 0;
 }
 .col-3 {
-  height: 100vh;
+	height: 100vh;
 }
 
 .noPad {
-  padding: 0;
+	padding: 0;
 }
 li {
-  list-style-type: none;
+	list-style-type: none;
 }
 .btn-primary {
-  background-color: white;
-  border-color: black;
-  color: black;
+	background-color: white;
+	border-color: black;
+	color: black;
 }
 .topMarg {
-  margin-top: 20px;
+	margin-top: 20px;
 }
 .col-9 {
-  height: 100vh;
-  padding-right: 0;
+	height: 100vh;
+	padding-right: 0;
 }
 .weatherHeight {
-  height: 40vh;
-  margin-top: 20px;
+	height: 40vh;
+	margin-top: 20px;
 }
 p {
-  font-size: 1rem;
+	font-size: 1rem;
+}
+#uv {
+	padding: 5px;
+}
+.bg-orange {
+	background-color: orangered;
+}
+.bg-purple {
+	background-color: purple;
 }

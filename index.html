@@ -1,97 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="Assets/style.css" />
-    <title>Document</title>
-    <!-- TODO: need name -->
-    <!-- TODO: once name is established, need to rename github project and launch site -->
-  </head>
-  <body class="bg-secondary">
-    <!-- TODO: remove background color once other styling is complete -->
-    <!-- TODO: need to set up daytime/nighttime shift (can do it based off of sunrise and sunset times in conjunction with momentjs current time) -->
-    <!-- TODO: need to complete readme -->
-    <!-- TODO: need to attempt more responsiveness -->
-    <div class="container-fluid noMarg">
-      <div class="row">
-        <div class="col-3 card card-body noPad">
-          <div class="card card-header">
-            <form action="POST">
-              <div class="input-group">
-                <label class="h3" for="citySearch">Search for a city:</label
-                ><br />
-                <input
-                  class="form-control-lg w-75"
-                  type="text"
-                  id="citySearch"
-                  name="citySearch"
-                />
-                <div class="input-group-append">
-                  <button
-                    class="btn btn-primary"
-                    type="button"
-                    id="newLocationBtn"
-                  >
-                    <svg
-                      width="1em"
-                      height="1em"
-                      viewBox="0 0 16 16"
-                      class="bi bi-search"
-                      fill="currentColor"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"
-                      />
-                      <path
-                        fill-rule="evenodd"
-                        d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"
-                      />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-            </form>
-          </div>
-          <div class="card-body">
-            <ul id="locationList"></ul>
-            <!-- TODO: need to get buttons to stretch the length of area -->
-          </div>
-        </div>
-        <div class="col-9">
-          <div class="container h-100">
-            <div class="row">
-              <div id="showCurrent" class="card card-body weatherHeight">
-                <p id="cityName" class="h1">---</p>
-                <p id="currentTemp">Temperature: ---</p>
-                <p id="currentHumidity">Humidity: ---</p>
-                <p id="windSpeed">Wind Speed: ---</p>
-                <p id="uv">UV Index: ---</p>
-              </div>
-            </div>
-            <div class="row h-50">
-              <div class="w-100 h-100">
-                <div>
-                  <h2 class="topMarg">5-Day Forcast:</h2>
-                </div>
-                <div id="fiveDaySpace" class="card-deck"></div>
-                <!-- TODO: need to fix formatting so that images don't stretch -->
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    <script src="Assets/script.js"></script>
-  </body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link
+			rel="stylesheet"
+			href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+			integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+			crossorigin="anonymous"
+		/>
+		<link rel="stylesheet" href="Assets/style.css" />
+		<title>Document</title>
+		<!-- TODO: need name -->
+		<!-- TODO: once name is established, need to rename github project and launch site -->
+	</head>
+	<body class="bg-secondary">
+		<!-- TODO: remove background color once other styling is complete -->
+		<!-- TODO: need to set up daytime/nighttime shift (can do it based off of sunrise and sunset times in conjunction with momentjs current time) -->
+		<!-- TODO: need to complete readme -->
+		<!-- TODO: need to attempt more responsiveness -->
+		<div class="container-fluid noMarg">
+			<div class="row">
+				<div class="col-3 card card-body noPad">
+					<div class="card card-header">
+						<form action="POST">
+							<div class="input-group">
+								<label class="h3" for="citySearch">Search for a city:</label
+								><br />
+								<input
+									class="form-control-lg w-75"
+									type="text"
+									id="citySearch"
+									name="citySearch"
+								/>
+								<div class="input-group-append">
+									<button
+										class="btn btn-primary"
+										type="button"
+										id="newLocationBtn"
+									>
+										<svg
+											width="1em"
+											height="1em"
+											viewBox="0 0 16 16"
+											class="bi bi-search"
+											fill="currentColor"
+											xmlns="http://www.w3.org/2000/svg"
+										>
+											<path
+												fill-rule="evenodd"
+												d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"
+											/>
+											<path
+												fill-rule="evenodd"
+												d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"
+											/>
+										</svg>
+									</button>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="card-body">
+						<ul id="locationList"></ul>
+						<!-- TODO: need to get buttons to stretch the length of area -->
+					</div>
+				</div>
+				<div class="col-9">
+					<div class="container h-100">
+						<div class="row">
+							<div id="showCurrent" class="card card-body weatherHeight">
+								<p id="cityName" class="h1">---</p>
+								<p id="currentTemp">Temperature: ---</p>
+								<p id="currentHumidity">Humidity: ---</p>
+								<p id="windSpeed">Wind Speed: ---</p>
+								<p>
+									UV Index:
+									<span id="uv" class="rounded"> --- </span>
+								</p>
+							</div>
+						</div>
+						<div class="row h-50">
+							<div class="w-100 h-100">
+								<div>
+									<h2 class="topMarg">5-Day Forcast:</h2>
+								</div>
+								<div id="fiveDaySpace" class="card-deck"></div>
+								<!-- TODO: need to fix formatting so that images don't stretch -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+		<script src="Assets/script.js"></script>
+	</body>
 </html>
