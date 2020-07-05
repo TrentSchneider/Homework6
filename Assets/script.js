@@ -1,12 +1,46 @@
 var long, lati;
-var newLocation, cityName, cityTemp, cityHumid, cityWind, cityUV, weatherData;
-if (navigator.geolocation) {
-  navigator.geolocation.getCurrentPosition(showPosition);
-  function showPosition(position) {
-    lati = position.coords.latitude;
-    long = position.coords.longitude;
-    getWeather();
+var newLocation,
+  cityName,
+  cityTemp,
+  cityHumid,
+  cityWind,
+  cityUV,
+  weatherData,
+  weatherArray;
+
+function storeData() {
+  // if (weatherArray != null) {
+  //   weatherArray.pop();
+  // }
+  // weatherArray.push({
+  //   latitude: lati,
+  //   longitude: long,
+  // });
+  // var storeToLocal = JSON.stringify(weatherArray);
+  // localStorage.setItem("storeData", storeToLocal);
+  localStorage.setItem("longitude", long);
+  localStorage.setItem("latitude", lati);
+}
+
+if (
+  localStorage.getItem("latitude") == "undefined" &&
+  localStorage.getItem("latitude") == null
+) {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+    function showPosition(position) {
+      lati = position.coords.latitude;
+      long = position.coords.longitude;
+      getWeather();
+    }
   }
+} else {
+  // weatherArray = JSON.parse(localStorage.getItem("storeData"));
+  // lati = weatherArray[0].latitude;
+  // long = weatherArray[0].longitude;
+  lati = localStorage.getItem("latitude");
+  long = localStorage.getItem("longitude");
+  getWeather();
 }
 function getWeather() {
   $.ajax({
@@ -83,7 +117,9 @@ $("#newLocationBtn").on("click", function () {
     }).then(function (response) {
       lati = response.coord.lat;
       long = response.coord.lon;
+      $("#fiveDaySpace").empty();
       getWeather();
+      storeData();
       var newLocation = $("#citySearch").val();
       var newLocationLI = $("<li>");
       var locationButton = $("<button>");
