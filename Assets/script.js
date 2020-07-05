@@ -6,25 +6,17 @@ var newLocation,
   cityWind,
   cityUV,
   weatherData,
-  weatherArray;
+  locationsArray,
+  locName;
 
 function storeData() {
-  // if (weatherArray != null) {
-  //   weatherArray.pop();
-  // }
-  // weatherArray.push({
-  //   latitude: lati,
-  //   longitude: long,
-  // });
-  // var storeToLocal = JSON.stringify(weatherArray);
-  // localStorage.setItem("storeData", storeToLocal);
   localStorage.setItem("longitude", long);
   localStorage.setItem("latitude", lati);
 }
 
 if (
-  localStorage.getItem("latitude") == "undefined" &&
-  localStorage.getItem("latitude") == null
+  localStorage.getItem("latitude") === "undefined" ||
+  localStorage.getItem("latitude") === null
 ) {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showPosition);
@@ -32,15 +24,20 @@ if (
       lati = position.coords.latitude;
       long = position.coords.longitude;
       getWeather();
+      if (locationsArray !== "undefined" && locationsArray !== null) {
+        locationsArray = JSON.parse(localStorage.getItem("storeData"));
+        fillLi();
+      }
     }
   }
 } else {
-  // weatherArray = JSON.parse(localStorage.getItem("storeData"));
-  // lati = weatherArray[0].latitude;
-  // long = weatherArray[0].longitude;
   lati = localStorage.getItem("latitude");
   long = localStorage.getItem("longitude");
   getWeather();
+  if (locationsArray !== "undefined" && locationsArray !== null) {
+    locationsArray = JSON.parse(localStorage.getItem("storeData"));
+    fillLi();
+  }
 }
 function getWeather() {
   $.ajax({
@@ -61,6 +58,7 @@ function getWeather() {
     $("#uv").empty();
     $("#uv").text("UV Index: " + response.current.uvi);
     console.log(response);
+    $("#fiveDaySpace").empty();
     for (let i = 1; i < 6; i++) {
       var fiveDay = $("<div>");
       fiveDay.attr("class", "card card-body bg-primary float-left");
@@ -85,6 +83,7 @@ function getWeather() {
       fiveDay.append(fiveDayPic);
       fiveDay.append(fiveDayTemp);
       fiveDay.append(fiveDayHum);
+
       $("#fiveDaySpace").append(fiveDay);
     }
   });
@@ -104,7 +103,27 @@ function getWeather() {
   });
 }
 
-function showData() {}
+function fillLi() {
+  locationsArray = JSON.parse(localStorage.getItem("storeData"));
+  for (let i = 0; i < locationsArray.length; i++) {
+    var newLocationLI = $("<li>");
+    var locationButton = $("<button>");
+    locationButton.text(locationsArray[i].name);
+    locationButton.addClass("btn btn-primary locBtn");
+    locationButton.attr("id", i);
+    newLocationLI.append(locationButton);
+    $("#locationList").append(newLocationLI);
+  }
+}
+function addLi() {
+  var newLocationLI = $("<li>");
+  var locationButton = $("<button>");
+  locationButton.text(locName);
+  locationButton.addClass("btn btn-primary locBtn");
+  newLocationLI.append(locationButton);
+  $("#locationList").prepend(newLocationLI);
+}
+
 $("#newLocationBtn").on("click", function () {
   var newLocation = $("#citySearch").val();
   if ($("#citySearch").val() != "") {
@@ -120,13 +139,41 @@ $("#newLocationBtn").on("click", function () {
       $("#fiveDaySpace").empty();
       getWeather();
       storeData();
-      var newLocation = $("#citySearch").val();
-      var newLocationLI = $("<li>");
-      var locationButton = $("<button>");
-      locationButton.text(response.name);
-      locationButton.addClass("btn btn-primary");
-      newLocationLI.append(locationButton);
-      $("#locationList").append(newLocationLI);
+      locationsArray = JSON.parse(localStorage.getItem("storeData"));
+      if (locationsArray === null) {
+        locationsArray = [];
+      }
+      locationsArray.unshift({
+        name: response.name,
+        latitude: response.coord.lat,
+        longitude: response.coord.lon,
+      });
+      var storeToLocal = JSON.stringify(locationsArray);
+      localStorage.setItem("storeData", storeToLocal);
+      locName = response.name;
+      addLi();
     });
   }
+});
+$("#locationList").on("click", ".locBtn", function () {
+  locationsArray = JSON.parse(localStorage.getItem("storeData"));
+  var currentLoc = this.id,
+    currentName = locationsArray[currentLoc].name,
+    currentLat = locationsArray[currentLoc].latitude,
+    currentLong = locationsArray[currentLoc].longitude;
+  lati = currentLat;
+  long = currentLong;
+  getWeather();
+  storeData();
+
+  locationsArray.splice(currentLoc, 1);
+  locationsArray.unshift({
+    name: currentName,
+    latitude: currentLat,
+    longitude: currentLong,
+  });
+  var storeToLocal = JSON.stringify(locationsArray);
+  localStorage.setItem("storeData", storeToLocal);
+  $("#locationList").empty();
+  fillLi();
 });
