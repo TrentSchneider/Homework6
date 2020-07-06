@@ -46,3 +46,6 @@ img {
 #fiveDaySpace {
 	padding-right: 10px;
 }
+.card-header {
+	border-bottom: none;
+}

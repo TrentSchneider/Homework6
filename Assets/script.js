@@ -103,7 +103,7 @@ function getWeather() {
 		$("#fiveDaySpace").empty();
 		for (let i = 1; i < 6; i++) {
 			var fiveDay = $("<div>");
-			fiveDay.attr("class", "card card-body bg-primary float-left");
+			fiveDay.attr("class", "card card-body bg-primary float-left text-white");
 			var fiveDayTemp = $("<p>");
 			var fiveDayHum = $("<p>");
 			var fiveDayDate = $("<p>");
@@ -195,6 +195,7 @@ $("#newLocationBtn").on("click", function (event) {
 				latitude: response.coord.lat,
 				longitude: response.coord.lon,
 			});
+			// code segment from https://www.wikimass.com/json/remove-duplicates
 			var data1 = locationsArray.filter((thing, index) => {
 				return (
 					index ===
