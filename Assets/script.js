@@ -162,7 +162,7 @@ function fillLi() {
 		var newLocationLI = $("<li>");
 		var locationButton = $("<button>");
 		locationButton.text(locationsArray[i].name);
-		locationButton.addClass("btn btn-primary locBtn");
+		locationButton.addClass("btn btn-primary locBtn w-100");
 		locationButton.attr("id", i);
 		newLocationLI.append(locationButton);
 		$("#locationList").append(newLocationLI);
@@ -170,7 +170,8 @@ function fillLi() {
 }
 
 // this is for searching new locations and adding the data to the stored list of locations
-$("#newLocationBtn").on("click", function () {
+$("#newLocationBtn").on("click", function (event) {
+	event.preventDefault();
 	var newLocation = $("#citySearch").val();
 	if ($("#citySearch").val() != "") {
 		$.ajax({
