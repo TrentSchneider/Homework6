@@ -10,19 +10,16 @@
 			crossorigin="anonymous"
 		/>
 		<link rel="stylesheet" href="Assets/style.css" />
-		<title>Document</title>
-		<!-- TODO: need name -->
-		<!-- TODO: once name is established, need to rename github project and launch site -->
+		<title>Weather Dashboard</title>
 	</head>
-	<body>
-		<!-- TODO: remove background color once other styling is complete -->
+	<body">
 		<!-- TODO: need to set up daytime/nighttime shift (can do it based off of sunrise and sunset times in conjunction with momentjs current time) -->
 		<!-- TODO: need to complete readme -->
 		<!-- TODO: need to attempt more responsiveness -->
 		<div class="container-fluid noMarg">
 			<div class="row">
-				<div class="col-3 card card-body noPad">
-					<div class="card card-header">
+				<div id="searchCol" class="col-3 card card-body noPad">
+					<div id="searchHead" class="card card-header">
 						<form action="POST">
 							<div class="input-group">
 								<label class="h3" for="citySearch">Search for a city:</label
@@ -61,9 +58,8 @@
 							</div>
 						</form>
 					</div>
-					<div class="card-body bg-light">
+					<div id="locCol" class="card-body bg-light">
 						<ul id="locationList" class="noPad"></ul>
-						<!-- TODO: need to get buttons to stretch the length of area -->
 					</div>
 				</div>
 				<div class="col-9">
@@ -86,7 +82,6 @@
 									<h2 class="topMarg">5-Day Forcast:</h2>
 								</div>
 								<div id="fiveDaySpace" class="card-deck"></div>
-								<!-- TODO: need to fix formatting so that images don't stretch -->
 							</div>
 						</div>
 					</div>
@@ -94,7 +89,7 @@
 			</div>
 		</div>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 		<script src="Assets/script.js"></script>
 	</body>
 </html>

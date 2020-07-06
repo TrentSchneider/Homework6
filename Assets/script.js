@@ -7,8 +7,33 @@ var newLocation,
 	cityUV,
 	weatherData,
 	locationsArray,
-	locName;
+	locName,
+	sunrise,
+	sunset,
+	sunriseStamp,
+	sunsetStamp,
+	offset;
 
+// converts unix sunrise and sunset time to standard format
+// converted getSun function from original conversion function found at https://www.w3docs.com/snippets/javascript/how-to-convert-a-unix-timestamp-to-time-in-javascript.html
+function getSun() {
+	sunriseTimestamp = sunriseStamp;
+	sunsetTimestamp = sunsetStamp;
+
+	let riseDate = new Date(sunriseTimestamp * 1000);
+	let riseHours = riseDate.getHours();
+	let riseMinutes = "0" + riseDate.getMinutes();
+	let riseSeconds = "0" + riseDate.getSeconds();
+	sunrise = riseHours + riseMinutes.substr(-2) + riseSeconds.substr(-2);
+
+	let setDate = new Date(sunsetTimestamp * 1000);
+	let setHours = setDate.getHours();
+	let setMinutes = "0" + setDate.getMinutes();
+	let setSeconds = "0" + setDate.getSeconds();
+	sunset = setHours + setMinutes.substr(-2) + setSeconds.substr(-2);
+}
+
+// function for storing the last searched location's coordinates
 function storeData() {
 	localStorage.setItem("longitude", long);
 	localStorage.setItem("latitude", lati);
@@ -66,6 +91,37 @@ function getWeather() {
 		$("#uv").empty();
 		$("#uv").text(response.current.uvi);
 
+		// compares the current time for the searched location to the times for sunrise and sunset and changes page from day to night or night to day
+		sunriseStamp = response.current.sunrise;
+		sunsetStamp = response.current.sunset;
+		offset = response.timezone_offset;
+		getSun();
+		var currentTime = moment().subtract(offset, "seconds").format("Hmmss");
+		console.log(currentTime);
+		if (currentTime > sunrise && currentTime < sunset) {
+			$("body").removeClass("bg-dark text-white");
+			$("button").removeClass("bg-dark text-white");
+			$("#searchHead").removeClass("bg-secondary");
+			$("#locCol").removeClass("bg-secondary");
+			$("#searchCol").removeClass("noBord");
+			$("#fiveDayCard").removeClass("bg-blue");
+			$("#fiveDayCard").addClass("bg-primary");
+			$("#showCurrent").removeClass("bg-secondary");
+			$("#locCol").addClass("bg-light");
+			$("body").addClass("bg-white text-dark");
+		} else {
+			$("body").removeClass("bg-white text-dark");
+			$("#locCol").removeClass("bg-light");
+			$("#fiveDayCard").removeClass("bg-primary");
+			$("#searchHead").addClass("bg-secondary");
+			$("#searchCol").addClass("noBord");
+			$("#fiveDayCard").addClass("bg-blue");
+			$("#showCurrent").addClass("bg-secondary");
+			$("button").addClass("bg-dark text-white");
+			$("#locCol").addClass("bg-secondary");
+			$("body").addClass("bg-dark text-white");
+		}
+
 		// updates uv index for current weather with color coding
 		if (response.current.uvi < 3) {
 			$("#uv").removeClass("bg-warning");
@@ -103,6 +159,7 @@ function getWeather() {
 		$("#fiveDaySpace").empty();
 		for (let i = 1; i < 6; i++) {
 			var fiveDay = $("<div>");
+			fiveDay.attr("id", "fiveDayCard");
 			fiveDay.attr("class", "card card-body bg-primary float-left text-white");
 			var fiveDayTemp = $("<p>");
 			var fiveDayHum = $("<p>");

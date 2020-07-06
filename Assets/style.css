@@ -49,3 +49,9 @@ img {
 .card-header {
 	border-bottom: none;
 }
+.noBord {
+	border: none;
+}
+.bg-blue {
+	background-color: darkblue;
+}
