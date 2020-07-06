@@ -14,6 +14,9 @@ function storeData() {
 	localStorage.setItem("latitude", lati);
 }
 
+// this is for the default functionality of the page when it is first visited or the page is refreshed
+// it will either fill in the current/5 day weather for the user's current location or fill in the weather/5 day for the last location the user searched
+// it will also load the list of previously searched locations if locations have been searched
 if (
 	localStorage.getItem("latitude") === "undefined" ||
 	localStorage.getItem("latitude") === null
@@ -42,6 +45,7 @@ if (
 	fillLi();
 }
 
+// this is the function for the ajax call for current weather/5 day weather and updating the current weather/5 day weather fields
 function getWeather() {
 	$.ajax({
 		url:
@@ -52,6 +56,7 @@ function getWeather() {
 			"&appid=366cc20005f64d752fb214b02121c288&units=imperial&exclude=hourly",
 		method: "GET",
 	}).then(function (response) {
+		// fills in the information for the current weather
 		$("#currentTemp").empty();
 		$("#currentTemp").text("Temperature: " + response.current.temp + " °F");
 		$("#currentHumidity").empty();
@@ -59,23 +64,42 @@ function getWeather() {
 		$("#windSpeed").empty();
 		$("#windSpeed").text("Wind Speed: " + response.current.wind_speed);
 		$("#uv").empty();
-		$("#uv").text("UV Index: " + response.current.uvi);
+		$("#uv").text(response.current.uvi);
+
+		// updates uv index for current weather with color coding
 		if (response.current.uvi < 3) {
-			$("uv").removeAttr("class");
-			$("uv").attr("class", "rounded bg-success");
+			$("#uv").removeClass("bg-warning");
+			$("#uv").removeClass("bg-orange");
+			$("#uv").removeClass("bg-danger");
+			$("#uv").removeClass("bg-purple");
+			$("#uv").addClass("bg-success");
 		} else if (response.current.uvi > 2.9 && response.current.uvi < 6) {
-			$("uv").removeAttr("class");
-			$("uv").attr("class", "rounded bg-warning");
+			$("#uv").removeClass("bg-success");
+			$("#uv").removeClass("bg-orange");
+			$("#uv").removeClass("bg-danger");
+			$("#uv").removeClass("bg-purple");
+			$("#uv").addClass("bg-warning");
 		} else if (response.current.uvi > 5.9 && response.current.uvi < 8) {
-			$("uv").removeAttr("class");
-			$("uv").attr("class", "rounded bg-orange");
+			$("#uv").removeClass("bg-warning");
+			$("#uv").removeClass("bg-success");
+			$("#uv").removeClass("bg-danger");
+			$("#uv").removeClass("bg-purple");
+			$("#uv").addClass("bg-orange");
 		} else if (response.current.uvi > 7.9 && response.current.uvi < 11) {
-			$("uv").removeAttr("class");
-			$("uv").attr("class", "rounded bg-danger");
+			$("#uv").removeClass("bg-warning");
+			$("#uv").removeClass("bg-orange");
+			$("#uv").removeClass("bg-success");
+			$("#uv").removeClass("bg-purple");
+			$("#uv").addClass("bg-danger");
 		} else {
-			$("uv").removeAttr("class");
-			$("uv").attr("class", "rounded bg-purple");
+			$("#uv").removeClass("bg-warning");
+			$("#uv").removeClass("bg-orange");
+			$("#uv").removeClass("bg-danger");
+			$("#uv").removeClass("bg-success");
+			$("#uv").addClass("bg-purple");
 		}
+
+		// this fills in the 5 day weather for the current location
 		$("#fiveDaySpace").empty();
 		for (let i = 1; i < 6; i++) {
 			var fiveDay = $("<div>");
@@ -105,6 +129,8 @@ function getWeather() {
 			$("#fiveDaySpace").append(fiveDay);
 		}
 	});
+
+	// this fills in the current location and pulls the current date
 	$.ajax({
 		url:
 			"https://api.openweathermap.org/data/2.5/weather?lat=" +
@@ -121,6 +147,7 @@ function getWeather() {
 	});
 }
 
+// this fills in the searched locations list
 function fillLi() {
 	$("#locationList").empty();
 	locationsArray = JSON.parse(localStorage.getItem("storeData"));
@@ -135,6 +162,7 @@ function fillLi() {
 	}
 }
 
+// this is for searching new locations and adding the data to the stored list of locations
 $("#newLocationBtn").on("click", function () {
 	var newLocation = $("#citySearch").val();
 	if ($("#citySearch").val() != "") {
@@ -175,6 +203,8 @@ $("#newLocationBtn").on("click", function () {
 		});
 	}
 });
+
+// this allows the location list buttons to call the current/5 day weather for the selected location and to move said location to the top of the list
 $("#locationList").on("click", ".locBtn", function () {
 	locationsArray = JSON.parse(localStorage.getItem("storeData"));
 	var currentLoc = this.id,
