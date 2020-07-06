@@ -113,8 +113,9 @@ function getWeather() {
 				"src",
 				"http://openweathermap.org/img/wn/" +
 					response.daily[i].weather[0].icon +
-					".png"
+					"@2x.png"
 			);
+			fiveDayPic.attr("alt", "5 day weather icon");
 			fiveDayTemp.text(
 				"Temp: " + JSON.stringify(response.daily[i].temp.day) + " °F"
 			);
@@ -140,10 +141,16 @@ function getWeather() {
 			"&appid=366cc20005f64d752fb214b02121c288",
 		method: "GET",
 	}).then(function (response) {
+		var weatherPic = $("<img>");
+		weatherPic.attr(
+			"src",
+			"http://openweathermap.org/img/wn/" + response.weather[0].icon + "@2x.png"
+		);
 		$("#cityName").empty();
 		$("#cityName").text(
 			response.name + " (" + moment().format("ddd MMMM Do, YYYY") + ")"
 		);
+		$("#cityName").append(weatherPic);
 	});
 }
 
