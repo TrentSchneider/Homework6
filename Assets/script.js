@@ -97,7 +97,7 @@ function getWeather() {
 		offset = response.timezone_offset;
 		getSun();
 		var currentTime = moment().subtract(offset, "seconds").format("Hmmss");
-		if (currentTime < sunrise && currentTime > sunset) {
+		if (currentTime > sunrise && currentTime < sunset) {
 			$("body").removeClass("bg-dark text-white");
 			$("button").removeClass("bg-dark text-white");
 			$("#searchHead").removeClass("bg-secondary");
