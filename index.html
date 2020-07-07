@@ -13,13 +13,10 @@
 		<title>Weather Dashboard</title>
 	</head>
 	<body">
-		<!-- TODO: need to set up daytime/nighttime shift (can do it based off of sunrise and sunset times in conjunction with momentjs current time) -->
-		<!-- TODO: need to complete readme -->
-		<!-- TODO: need to attempt more responsiveness -->
 		<div class="container-fluid noMarg">
 			<div class="row">
 				<div id="searchCol" class="col-3 card card-body noPad">
-					<div id="searchHead" class="card card-header">
+					<div id="searchHead" class="card card-header noBord bg-lighter">
 						<form action="POST">
 							<div class="input-group">
 								<label class="h3" for="citySearch">Search for a city:</label
@@ -58,14 +55,14 @@
 							</div>
 						</form>
 					</div>
-					<div id="locCol" class="card-body bg-light">
+					<div id="locCol" class="card-body bg-lighter">
 						<ul id="locationList" class="noPad"></ul>
 					</div>
 				</div>
 				<div class="col-9">
 					<div class="container h-100">
 						<div class="row">
-							<div id="showCurrent" class="card card-body weatherHeight">
+							<div id="showCurrent" class="card card-body bg-lighter weatherHeight">
 								<p id="cityName" class="h1">---</p>
 								<p id="currentTemp">Temperature: ---</p>
 								<p id="currentHumidity">Humidity: ---</p>
@@ -77,12 +74,10 @@
 							</div>
 						</div>
 						<div class="row h-50">
-							<div class="w-100 h-100">
 								<div>
 									<h2 class="topMarg">5-Day Forcast:</h2>
 								</div>
 								<div id="fiveDaySpace" class="card-deck"></div>
-							</div>
 						</div>
 					</div>
 				</div>

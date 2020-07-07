@@ -97,20 +97,24 @@ function getWeather() {
 		offset = response.timezone_offset;
 		getSun();
 		var currentTime = moment().subtract(offset, "seconds").format("Hmmss");
-		if (currentTime > sunrise && currentTime < sunset) {
+		if (currentTime < sunrise && currentTime > sunset) {
 			$("body").removeClass("bg-dark text-white");
 			$("button").removeClass("bg-dark text-white");
 			$("#searchHead").removeClass("bg-secondary");
 			$("#locCol").removeClass("bg-secondary");
 			$("#searchCol").removeClass("noBord");
+			$("#showCurrent").addClass("bg-lighter");
 			$("#fiveDayCard").removeClass("bg-blue");
 			$("#fiveDayCard").addClass("bg-primary");
 			$("#showCurrent").removeClass("bg-secondary");
-			$("#locCol").addClass("bg-light");
+			$("#searchHead").addClass("bg-lighter");
+			$("#locCol").addClass("bg-lighter");
 			$("body").addClass("bg-white text-dark");
 		} else {
 			$("body").removeClass("bg-white text-dark");
-			$("#locCol").removeClass("bg-light");
+			$("#locCol").removeClass("bg-lighter");
+			$("#searchHead").removeClass("bg-lighter");
+			$("#showCurrent").removeClass("bg-lighter");
 			$("#fiveDayCard").removeClass("bg-primary");
 			$("#searchHead").addClass("bg-secondary");
 			$("#searchCol").addClass("noBord");

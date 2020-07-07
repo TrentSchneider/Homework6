@@ -24,7 +24,6 @@ li {
 	padding-right: 0;
 }
 .weatherHeight {
-	height: 40vh;
 	margin-top: 20px;
 }
 p {
@@ -43,9 +42,6 @@ img {
 	height: 75px;
 	width: 75px;
 }
-#fiveDaySpace {
-	padding-right: 10px;
-}
 .card-header {
 	border-bottom: none;
 }
@@ -54,4 +50,7 @@ img {
 }
 .bg-blue {
 	background-color: darkblue;
+}
+.bg-lighter {
+	background-color: rgb(236, 250, 255);
 }
