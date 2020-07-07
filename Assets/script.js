@@ -163,13 +163,19 @@ function getWeather() {
 		for (let i = 1; i < 6; i++) {
 			var fiveDay = $("<div>");
 			fiveDay.attr("id", "fiveDayCard");
-			fiveDay.attr("class", "card card-body bg-primary float-left text-white");
+			fiveDay.attr(
+				"class",
+				"card col-2 card-body bg-primary float-left text-white"
+			);
 			var fiveDayTemp = $("<p>");
 			var fiveDayHum = $("<p>");
 			var fiveDayDate = $("<p>");
+			var fiveDayDateNum = $("<p>");
 			var fiveDayPic = $("<img>");
-			fiveDayDate.text(moment().add(i, "days").format("ddd (MM/DD/YYYY)"));
-			fiveDayDate.addClass("font-weight-bold");
+			fiveDayDate.text(moment().add(i, "days").format("dddd"));
+			fiveDayDateNum.text(moment().add(i, "days").format("(MM/DD/YYYY)"));
+			fiveDayDate.addClass("font-weight-bold noMarg");
+			fiveDayDateNum.addClass("noMarg");
 			fiveDayPic.attr(
 				"src",
 				"https://openweathermap.org/img/wn/" +
@@ -184,6 +190,7 @@ function getWeather() {
 				"Humidity: " + JSON.stringify(response.daily[i].humidity)
 			);
 			fiveDay.append(fiveDayDate);
+			fiveDay.append(fiveDayDateNum);
 			fiveDay.append(fiveDayPic);
 			fiveDay.append(fiveDayTemp);
 			fiveDay.append(fiveDayHum);
